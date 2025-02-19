@@ -18,7 +18,7 @@ def CreateWin():
     main_win.config(bg="black")
 
 def random_word():
-   with open('russian.txt', 'r') as file:
+   with open('russian.txt', 'r', encoding="UTF-8") as file:
         words = file.readlines()
         words = [s.strip("\n") for s in words]
         return random.choice(words)
