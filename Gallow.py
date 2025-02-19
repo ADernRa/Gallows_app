@@ -25,9 +25,9 @@ def random_word():
         
 def GamePlay():
     ClearWin()
-    word = random_word()
-    i = 0
 
+    i = 0
+    global word
     canvas = Canvas(bg="black", highlightbackground = "black", width=200, height=200)
     canvas.place(anchor=CENTER, x = 200, y = 160)
 
@@ -57,7 +57,8 @@ def GamePlay():
         entry_word.destroy()
         btn_start.destroy()
         lbl_InputWord.destroy()
-
+        btn_ex.destroy()
+        
         lbl_lose = Label(text="Вы проиграли",bg="black", fg="lime",font=("Arial", 18))
         lbl_lose.place(anchor="c", y=90, x = 500)
 
@@ -121,6 +122,9 @@ def GamePlay():
     btn_start = Button(text="✅", width=5, height=2, command=Send)
     btn_start.place(anchor="c", y=140, x = 500)
 
+    btn_ex= Button(text="✗", width=3, height=2, command= MainMenu)
+    btn_ex.place(anchor="c", y=20, x = 700)
+
     lbl_InputWord = Label(text="Введите букву",bg="black", fg="lime",font=("Arial", 18))
     lbl_InputWord.place(anchor="c", y=50, x = 500)
 
@@ -131,11 +135,51 @@ def GamePlay():
     lbl_word.place(anchor="c", y=250, x = 500)
         
 def Play():
+    ClearWin()
+
+    def BtnBot():
+        global word
+        word = random_word()
+        GamePlay()
+
+    def BtnUser():
+        ClearWin()
+
+        def BtnNext():
+            global word
+            word = entry_worduser.get()
+            if word == "":
+                lbl_error = Label(text="необходимо ввести слово",bg="black", fg="red",font=("Arial", 16))
+                lbl_error.place(anchor="c", y=185, x = 360)
+            else:
+                GamePlay()
+
+        btn_next = Button(text="Продолжить", width=13, height=2, command=BtnNext)
+        btn_next.place(anchor="c", y=230, x = 360)
+
+        lbl_help = Label(text="Введите слово",bg="black", fg="lime",font=("Arial", 22))
+        lbl_help.place(anchor="c", y=100, x = 360)
+
+        entry_worduser = Entry(bg="white", justify = CENTER, font=("Arial", 18), width=5)
+        entry_worduser.place(anchor="c", y=150, x = 360)
+
+
+    lbl_word = Label(text="Выберите тип игры",bg="black", fg="lime",font=("Arial", 22))
+    lbl_word.place(anchor="c", y=100, x = 360)
+
+    btn_bot = Button(text="Задать слово", width=13, height=2, command=BtnUser)
+    btn_bot.place(anchor="c", y=160, x = 300)
+
+    btn_user = Button(text="Случайное слово", width=13, height=2, command=BtnBot)
+    btn_user.place(anchor="c", y=160, x = 420)
+
+    btn_user = Button(text="Назад", width=13, height=2, command=MainMenu)
+    btn_user.place(anchor="c", y=220, x = 360)
+
     global error
     global my_word
     error = 0
     my_word = []
-    GamePlay()
 
 def Info():
     ClearWin()
