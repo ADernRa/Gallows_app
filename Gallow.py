@@ -28,7 +28,7 @@ def GamePlay():
     word = random_word()
     i = 0
 
-    canvas = Canvas(bg="white", width=200, height=200)
+    canvas = Canvas(bg="black", highlightbackground = "black", width=200, height=200)
     canvas.place(anchor=CENTER, x = 200, y = 160)
 
     def draw():
@@ -38,6 +38,51 @@ def GamePlay():
             canvas.create_rectangle(165, 190, 180, 30, fill="#80CBC4", outline="#80CBC4")
             canvas.create_rectangle(165, 30, 95, 45, fill="#80CBC4", outline="#80CBC4")
             canvas.create_rectangle(95, 45, 110, 60, fill="#80CBC4", outline="#80CBC4")
+        elif error == 1:
+            canvas.create_oval(87, 60,117, 90, fill="#ece5cb", outline="#ece5cb")
+        elif error == 2:
+            canvas.create_rectangle(99, 90, 105, 130, fill="#ece5cb", outline="#ece5cb")
+        elif error == 3:
+            canvas.create_polygon(105, 105,  130, 70, 135, 75,  105, 115, fill="#ece5cb", outline="#ece5cb")
+        elif error == 4:
+            canvas.create_polygon(99, 105,   74, 70,  69, 75,    99, 115, fill="#ece5cb", outline="#ece5cb")
+        elif error == 5:
+            canvas.create_polygon(105, 130,  135, 170, 130, 175, 99, 130, fill="#ece5cb", outline="#ece5cb")
+        elif error == 6:
+            canvas.create_polygon(99, 130,  69, 170, 74, 175, 105, 130, fill="#ece5cb", outline="#ece5cb")
+            Lose()
+
+    def Lose():
+        lbl_word.destroy()
+        entry_word.destroy()
+        btn_start.destroy()
+        lbl_InputWord.destroy()
+
+        lbl_lose = Label(text="Вы проиграли",bg="black", fg="lime",font=("Arial", 18))
+        lbl_lose.place(anchor="c", y=90, x = 500)
+
+        lbl_word1 = Label(text=f"Слово было {word}",bg="black", fg="lime",font=("Arial", 18))
+        lbl_word1.place(anchor="c", y=190, x = 500)
+
+        btn_restart = Button(text="Рестарт", width=10, height=2, command=Play)
+        btn_restart.place(anchor="c", y=140, x = 450)
+
+        btn_menu = Button(text="В меню", width=10, height=2, command=MainMenu)
+        btn_menu.place(anchor="c", y=140, x = 550)
+
+    def Win():
+        ClearWin()
+        lbl_lose = Label(text="Вы победили",bg="black", fg="lime",font=("Arial", 18))
+        lbl_lose.place(anchor="c", y=90, x = 360)
+
+        lbl_word = Label(text=my_word,bg="black", fg="lime",font=("Arial", 22))
+        lbl_word.place(anchor="c", y=250, x = 360)
+
+        btn_restart = Button(text="Рестарт", width=10, height=2, command=Play)
+        btn_restart.place(anchor="c", y=160, x = 290)
+
+        btn_menu = Button(text="В меню", width=10, height=2, command=MainMenu)
+        btn_menu.place(anchor="c", y=160, x = 430)
 
     def Send():
         check = False
@@ -52,6 +97,13 @@ def GamePlay():
                 check = True
                 my_word[i] = letter
             i = i+1
+        word1 = ""
+        for letter in my_word:
+            word1 = word1 + letter
+
+        if word1==word:
+            Win()
+            return
         if check == True:
             lbl_word["text"] = my_word
             return
@@ -79,6 +131,8 @@ def GamePlay():
     lbl_word.place(anchor="c", y=250, x = 500)
         
 def Play():
+    global error
+    global my_word
     error = 0
     my_word = []
     GamePlay()
