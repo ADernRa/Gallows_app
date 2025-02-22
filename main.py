@@ -45,7 +45,7 @@ def GamePlay():
         elif error == 3:
             canvas.create_polygon(105, 105,  130, 70, 135, 75,  105, 115, fill="#ece5cb", outline="#ece5cb")
         elif error == 4:
-            canvas.create_polygon(99, 105,   74, 70,  69, 75,    99, 115, fill="#ece5cb", outline="#ece5cb")
+            canvas.create_polygon(99, 105,   74, 70,  69, 75,   99, 115, fill="#ece5cb", outline="#ece5cb")
         elif error == 5:
             canvas.create_polygon(105, 130,  135, 170, 130, 175, 99, 130, fill="#ece5cb", outline="#ece5cb")
         elif error == 6:
@@ -58,7 +58,7 @@ def GamePlay():
         btn_start.destroy()
         lbl_InputWord.destroy()
         btn_ex.destroy()
-        
+
         lbl_lose = Label(text="Вы проиграли",bg="black", fg="lime",font=("Arial", 18))
         lbl_lose.place(anchor="c", y=90, x = 500)
 
